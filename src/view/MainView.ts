@@ -1,7 +1,7 @@
 class MainView extends PIXI.Container {
     public init() {
         this.addLogo();
-        this.addSafe();
+        this.addSafes();
         this.addText();
     }
 
@@ -14,11 +14,17 @@ class MainView extends PIXI.Container {
         this.addChild(sprite);
     }
 
-    private addSafe() {
-        var safe:Safe = new Safe();
-        safe.x = window.innerWidth * 0.5;
-        safe.y = window.innerHeight * 0.5;
-        this.addChild(safe);
+    private addSafes() {
+        var container = new PIXI.Container();
+        for(var i=0; i< 3; i++) {
+            var safe:Safe = new Safe();
+            safe.x = (i + 0.5) * safe.width;
+            container.addChild(safe);
+        }
+
+        container.x = (window.innerWidth - container.width) * 0.5;
+        container.y = window.innerHeight * 0.5;
+        this.addChild(container);
     }
 
     private addText() {

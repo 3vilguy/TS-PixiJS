@@ -16,7 +16,7 @@ var MainView = (function (_super) {
     }
     MainView.prototype.init = function () {
         this.addLogo();
-        this.addSafe();
+        this.addSafes();
         this.addText();
     };
     MainView.prototype.addLogo = function () {
@@ -25,11 +25,16 @@ var MainView = (function (_super) {
         sprite.x = window.innerWidth * 0.5;
         this.addChild(sprite);
     };
-    MainView.prototype.addSafe = function () {
-        var safe = new Safe();
-        safe.x = window.innerWidth * 0.5;
-        safe.y = window.innerHeight * 0.5;
-        this.addChild(safe);
+    MainView.prototype.addSafes = function () {
+        var container = new PIXI.Container();
+        for (var i = 0; i < 3; i++) {
+            var safe = new Safe();
+            safe.x = (i + 0.5) * safe.width;
+            container.addChild(safe);
+        }
+        container.x = (window.innerWidth - container.width) * 0.5;
+        container.y = window.innerHeight * 0.5;
+        this.addChild(container);
     };
     MainView.prototype.addText = function () {
         var bitmapFontText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export' });
