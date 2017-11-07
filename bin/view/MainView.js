@@ -26,11 +26,10 @@ var MainView = (function (_super) {
         this.addChild(sprite);
     };
     MainView.prototype.addSafe = function () {
-        var sprite = new PIXI.Sprite(PIXI.loader.resources['images/safe/box.png'].texture);
-        sprite.anchor.set(0.5, 0.5);
-        sprite.x = window.innerWidth * 0.5;
-        sprite.y = window.innerHeight * 0.5;
-        this.addChild(sprite);
+        var safe = new Safe();
+        safe.x = window.innerWidth * 0.5;
+        safe.y = window.innerHeight * 0.5;
+        this.addChild(safe);
     };
     MainView.prototype.addText = function () {
         var bitmapFontText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export' });

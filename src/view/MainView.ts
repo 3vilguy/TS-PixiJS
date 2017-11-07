@@ -15,13 +15,10 @@ class MainView extends PIXI.Container {
     }
 
     private addSafe() {
-        var sprite = new PIXI.Sprite(
-            PIXI.loader.resources['images/safe/box.png'].texture
-        );
-        sprite.anchor.set(0.5, 0.5);
-        sprite.x = window.innerWidth * 0.5;
-        sprite.y = window.innerHeight * 0.5;
-        this.addChild(sprite);
+        var safe:Safe = new Safe();
+        safe.x = window.innerWidth * 0.5;
+        safe.y = window.innerHeight * 0.5;
+        this.addChild(safe);
     }
 
     private addText() {
