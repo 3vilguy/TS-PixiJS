@@ -9,6 +9,7 @@ var stage = new PIXI.Container();
 renderer.render(stage);
 PIXI.loader
     .add("images/LOGO.png")
+    .add('bitmap_font/message_simple-export.xml')
     .load(onAssetsLoaded);
 function onAssetsLoaded() {
     console.log("onAssetsLoaded");
