@@ -16,12 +16,20 @@ var MainView = (function (_super) {
     }
     MainView.prototype.init = function () {
         this.addLogo();
+        this.addSafe();
         this.addText();
     };
     MainView.prototype.addLogo = function () {
-        var sprite = new PIXI.Sprite(PIXI.loader.resources["images/LOGO.png"].texture);
+        var sprite = new PIXI.Sprite(PIXI.loader.resources['images/LOGO.png'].texture);
         sprite.anchor.x = 0.5;
         sprite.x = window.innerWidth * 0.5;
+        this.addChild(sprite);
+    };
+    MainView.prototype.addSafe = function () {
+        var sprite = new PIXI.Sprite(PIXI.loader.resources['images/safe/box.png'].texture);
+        sprite.anchor.set(0.5, 0.5);
+        sprite.x = window.innerWidth * 0.5;
+        sprite.y = window.innerHeight * 0.5;
         this.addChild(sprite);
     };
     MainView.prototype.addText = function () {
