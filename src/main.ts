@@ -7,8 +7,23 @@ renderer.view.style.display = "block";
 document.body.appendChild(renderer.view);
 
 const stage = new PIXI.Container();
+renderer.render(stage);
 
-requestAnimationFrame(draw);
+PIXI.loader
+  .add("images/LOGO.png")
+  .load(onAssetsLoaded);
+
+function onAssetsLoaded() {
+  console.log("onAssetsLoaded");
+  init();
+  requestAnimationFrame(draw);
+}
+
+function init() {
+  var mainView:MainView = new MainView();
+  stage.addChild(mainView);
+  mainView.init();
+}
 
 function draw() {
   renderer.render(stage);
