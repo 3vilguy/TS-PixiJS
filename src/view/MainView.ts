@@ -10,7 +10,7 @@ class MainView extends PIXI.Container {
             PIXI.loader.resources['images/LOGO.png'].texture
         );
         sprite.anchor.x = 0.5;
-        sprite.x = window.innerWidth * 0.5;
+        sprite.x = WIDTH * 0.5;
         this.addChild(sprite);
     }
 
@@ -22,16 +22,16 @@ class MainView extends PIXI.Container {
             container.addChild(safe);
         }
 
-        container.x = (window.innerWidth - container.width) * 0.5;
-        container.y = window.innerHeight * 0.5;
+        container.x = (WIDTH - container.width) * 0.5;
+        container.y = HEIGHT * 0.5;
         this.addChild(container);
     }
 
     private addText() {
         var bitmapFontText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export'});
         bitmapFontText.anchor = new PIXI.Point(0.5);
-        bitmapFontText.x = window.innerWidth * 0.5;
-        bitmapFontText.y = window.innerHeight - bitmapFontText.height;
+        bitmapFontText.x = WIDTH * 0.5;
+        bitmapFontText.y = HEIGHT - bitmapFontText.height;
 
         this.addChild(bitmapFontText);
     }

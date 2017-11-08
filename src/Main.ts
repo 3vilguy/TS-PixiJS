@@ -1,14 +1,31 @@
-const WIDTH : number = window.innerWidth;
-const HEIGHT : number = window.innerHeight;
-const BG_COLOR = 0xc1c2c4;
+// GLOBALS
+const WIDTH : number = 1400;
+const HEIGHT : number = 1000;
+const BG_COLOR : number = 0xc1c2c4;
 
-const renderer = PIXI.autoDetectRenderer(WIDTH, HEIGHT, { backgroundColor: BG_COLOR });
-renderer.view.style.display = "block";
-document.body.appendChild(renderer.view);
+// Init Pixi stuff
+const app = new PIXI.Application(WIDTH, HEIGHT, { backgroundColor: BG_COLOR });
+app.renderer.autoResize = true;
+document.body.appendChild(app.view);
+onWindowResize();
 
-const stage = new PIXI.Container();
-renderer.render(stage);
+// Resizing
+if (app.renderer.autoResize) {
+  window.onresize = onWindowResize;
+}
 
+function onWindowResize() {
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  app.renderer.resize(width, height);
+  app.view.style.width = width + "px";
+  app.view.style.height = height + "px";
+
+  app.stage.x = (window.innerWidth - WIDTH) * 0.5;
+}
+
+
+// Load assets
 PIXI.loader
   .add('images/LOGO.png')
   .add('bitmap_font/message_simple-export.xml')
@@ -25,16 +42,17 @@ PIXI.loader
 function onAssetsLoaded() {
   console.log("onAssetsLoaded");
   init();
-  requestAnimationFrame(draw);
 }
+
 
 function init() {
   var mainView:MainView = new MainView();
-  stage.addChild(mainView);
+  app.stage.addChild(mainView);
   mainView.init();
+
+  app.ticker.add(update);
 }
 
-function draw() {
-  renderer.render(stage);
-  requestAnimationFrame(draw);
+function update() {
+  app.renderer.render(app.stage);
 }
