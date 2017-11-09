@@ -5,6 +5,7 @@ export default class MainView extends PIXI.Container {
     public init() {
         this.addLogo();
         this.addSafes();
+        this.addText();
     }
 
     private addLogo() {
@@ -27,5 +28,14 @@ export default class MainView extends PIXI.Container {
         container.x = (WIDTH - container.width) * 0.5;
         container.y = HEIGHT * 0.5;
         this.addChild(container);
+    }
+
+    private addText() {
+        var bitmapFontText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export'});
+        bitmapFontText.anchor = new PIXI.Point(0.5);
+        bitmapFontText.x = WIDTH * 0.5;
+        bitmapFontText.y = HEIGHT - bitmapFontText.height;
+
+        this.addChild(bitmapFontText);
     }
 }

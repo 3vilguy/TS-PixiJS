@@ -22,9 +22,18 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                loaders: [{    
-                    loader: 'url-loader',
-                    query: {}
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext]'
+                    }  
+                }]
+            },
+            {
+                test: /\.(xml)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {}  
                 }]
             }
         ]
