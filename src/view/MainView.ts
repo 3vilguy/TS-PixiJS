@@ -6,7 +6,6 @@ export default class MainView extends PIXI.Container {
     }
 
     private addLogo() {
-        console.log(PIXI.loader.resources);
         var sprite = new PIXI.Sprite(
             PIXI.loader.resources[require('../../assets/images/LOGO.png')].texture
         );
