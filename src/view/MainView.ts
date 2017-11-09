@@ -39,7 +39,7 @@ export default class MainView extends PIXI.Container {
         this.safeHolder = new SafeHolder();
         this.safeHolder.createSafes(this.safeCount);
         this.safeHolder.x = (WIDTH - this.safeHolder.width) * 0.5;
-        this.safeHolder.y = HEIGHT * 0.5;
+        this.safeHolder.y = HEIGHT * 0.6;
         this.addChild(this.safeHolder);
     }
 

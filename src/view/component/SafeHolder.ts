@@ -12,7 +12,7 @@ export default class SafeHolder extends PIXI.Container {
     constructor() {
         super();
         this.all_safes = [];
-        this.shuffleSpeed = 0.5;
+        this.shuffleSpeed = 0.8;
         this.tweenCount = 0;
     }
 
