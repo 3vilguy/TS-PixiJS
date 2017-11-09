@@ -1,4 +1,6 @@
 import * as PIXI from 'pixi.js';
+import { TweenLite, Linear } from 'gsap';
+
 import MainView from './view/MainView';
 import { WIDTH, HEIGHT, BG_COLOR } from './constants/RendererConstants';
 
@@ -47,6 +49,8 @@ function onAssetsLoaded() {
 }
 
 function init() {
+    TweenLite.defaultEase = Linear.easeNone;
+
     var mainView:MainView = new MainView();
     mainView.init();
     app.stage.addChild(mainView);
