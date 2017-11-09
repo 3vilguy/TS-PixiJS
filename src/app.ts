@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import MainView from './view/MainView';
 import { WIDTH, HEIGHT, BG_COLOR } from './constants/RendererConstants';
 
 // Init Pixi stuff
@@ -25,17 +26,12 @@ function onWindowResize() {
 
 
 // Other stuff
-var graph = new PIXI.Graphics();
-graph.beginFill(0xFF0000);
-graph.drawRect(0, 0, 100, 100);
-graph.endFill();
-app.stage.addChild(graph);
-graph.x = WIDTH * 0.5;
-graph.y = HEIGHT * 0.5;
+var mainView:MainView = new MainView();
+mainView.init();
+app.stage.addChild(mainView);
 
 app.ticker.add(update);
 
 function update() {
-    graph.rotation += 0.05;
     app.renderer.render(app.stage);
 }
