@@ -83,7 +83,7 @@ export default class MainView extends Container {
             shuffleArray.push(item);
         }
 
-        this.safeHolder.shuffleSafes(shuffleArray, this.onShuffleComplete);
+        this.safeHolder.shuffleSafes(shuffleArray, () => this.onShuffleComplete());
     }
 
     private onShuffleComplete() {
