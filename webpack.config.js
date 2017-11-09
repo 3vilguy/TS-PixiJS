@@ -19,6 +19,13 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: ["ts-loader"]
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                loaders: [{    
+                    loader: 'url-loader',
+                    query: {}
+                }]
             }
         ]
     },

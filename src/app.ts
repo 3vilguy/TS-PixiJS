@@ -24,13 +24,23 @@ function onWindowResize() {
     app.stage.x = (window.innerWidth - WIDTH) * 0.5;
 }
 
+// Load assets
+PIXI.loader
+    .add(require('../assets/images/LOGO.png'))
+    .load(onAssetsLoaded);
 
-// Other stuff
-var mainView:MainView = new MainView();
-mainView.init();
-app.stage.addChild(mainView);
+function onAssetsLoaded() {
+    console.log("onAssetsLoaded");
+    init();
+}
 
-app.ticker.add(update);
+function init() {
+    var mainView:MainView = new MainView();
+    mainView.init();
+    app.stage.addChild(mainView);
+    
+    app.ticker.add(update);
+}
 
 function update() {
     app.renderer.render(app.stage);
