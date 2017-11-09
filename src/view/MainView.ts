@@ -1,15 +1,18 @@
 import { TweenLite } from 'gsap';
+import * as Combinatorics from 'js-combinatorics';
 
 import SafeHolder from './component/SafeHolder';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 
 export default class MainView extends PIXI.Container {
     private safeHolder : SafeHolder;
+    private footerText : PIXI.extras.BitmapText;
     private safeCount : number;
     private totalShuffles : number;
 
     public init() {
         this.safeCount = 3;
+        this.totalShuffles = 5;
         this.alpha = 0;
 
         this.addGraphic();
@@ -41,20 +44,46 @@ export default class MainView extends PIXI.Container {
     }
 
     private addText() {
-        var bitmapFontText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export'});
-        bitmapFontText.anchor = new PIXI.Point(0.5);
-        bitmapFontText.x = WIDTH * 0.5;
-        bitmapFontText.y = HEIGHT - bitmapFontText.height;
+        this.footerText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export'});
+        this.footerText.anchor = new PIXI.Point(0.5);
+        this.footerText.x = WIDTH * 0.5;
+        this.footerText.y = HEIGHT - this.footerText.height;
 
-        this.addChild(bitmapFontText);
+        this.addChild(this.footerText);
     }
 
 
     private showInitTween() {
-        TweenLite.to(this, 2, {alpha: 1, onComplete: this.onTweenComplete})
+        TweenLite.to(this, 2, {alpha: 1, onComplete: () => this.onTweenComplete()})
     }
 
     private onTweenComplete() {
         console.log("onTweenComplete");
+        this.startShuffling();
+    }
+
+
+    private startShuffling() {
+        this.footerText.text = "SHUFFLING...";
+
+        // Shuffle data:
+        var arr = []
+        for(var i=0; i< this.safeCount; i++) {
+            arr.push(i);
+        }
+
+        var combinations = Combinatorics.combination(arr, 2).toArray();
+        var shuffleArray = [];
+
+        for(var i=0; i< this.totalShuffles; i++) {
+            var item = combinations[Math.floor(Math.random()*combinations.length)];
+            shuffleArray.push(item);
+        }
+
+        this.safeHolder.shuffleSafes(shuffleArray, this.onShuffleComplete);
+    }
+
+    private onShuffleComplete() {
+        console.log("onShuffleComplete");
     }
 }
