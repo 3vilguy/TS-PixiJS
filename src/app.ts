@@ -1,9 +1,5 @@
 import * as PIXI from 'pixi.js';
-
-// GLOBALS
-const WIDTH : number = 800;
-const HEIGHT : number = 600;
-const BG_COLOR : number = 0x1099bb;
+import { WIDTH, HEIGHT, BG_COLOR } from './constants/RendererConstants';
 
 // Init Pixi stuff
 const app = new PIXI.Application(WIDTH, HEIGHT, {backgroundColor: BG_COLOR});
