@@ -3,19 +3,14 @@ import * as Combinatorics from 'js-combinatorics';
 import { Container, Sprite } from 'pixi.js';
 
 import SafeHolder from './component/SafeHolder';
+import { INIT_TWEEN_TIME, SAFE_COUNT, NUMBER_OF_SHUFFLES } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 
 export default class MainView extends Container {
     private safeHolder : SafeHolder;
     private footerText : PIXI.extras.BitmapText;
-    private safeCount : number;
-    private totalShuffles : number;
-    private initialTweenTime : number;
 
     public init() {
-        this.safeCount = 3;
-        this.totalShuffles = 5;
-        this.initialTweenTime = 2;
         this.alpha = 0;
 
         this.addGraphic();
@@ -40,7 +35,7 @@ export default class MainView extends Container {
 
     private addSafeHolder() {
         this.safeHolder = new SafeHolder();
-        this.safeHolder.createSafes(this.safeCount);
+        this.safeHolder.createSafes(SAFE_COUNT);
         this.safeHolder.x = (WIDTH - this.safeHolder.width) * 0.5;
         this.safeHolder.y = HEIGHT * 0.6;
         this.addChild(this.safeHolder);
@@ -57,7 +52,7 @@ export default class MainView extends Container {
 
 
     private showInitTween() {
-        TweenLite.to(this, this.initialTweenTime, {alpha: 1, onComplete: () => this.onTweenComplete()})
+        TweenLite.to(this, INIT_TWEEN_TIME, {alpha: 1, onComplete: () => this.onTweenComplete()})
     }
 
     private onTweenComplete() {
@@ -71,14 +66,14 @@ export default class MainView extends Container {
 
         // Shuffle data:
         var arr = []
-        for(var i=0; i< this.safeCount; i++) {
+        for(var i=0; i< SAFE_COUNT; i++) {
             arr.push(i);
         }
 
         var combinations = Combinatorics.combination(arr, 2).toArray();
         var shuffleArray = [];
 
-        for(var i=0; i< this.totalShuffles; i++) {
+        for(var i=0; i< NUMBER_OF_SHUFFLES; i++) {
             var item = combinations[Math.floor(Math.random()*combinations.length)];
             shuffleArray.push(item);
         }
