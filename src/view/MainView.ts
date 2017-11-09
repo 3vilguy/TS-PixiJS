@@ -1,13 +1,15 @@
 import { TweenLite } from 'gsap';
 
-import Safe from './component/Safe';
+import SafeHolder from './component/SafeHolder';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 
 export default class MainView extends PIXI.Container {
+    private safeHolder : SafeHolder;
     private safeCount : number;
     private totalShuffles : number;
 
     public init() {
+        this.safeCount = 3;
         this.alpha = 0;
 
         this.addGraphic();
@@ -17,7 +19,7 @@ export default class MainView extends PIXI.Container {
 
     private addGraphic() {
         this.addLogo();
-        this.addSafes();
+        this.addSafeHolder();
         this.addText();
     }
 
@@ -30,17 +32,12 @@ export default class MainView extends PIXI.Container {
         this.addChild(sprite);
     }
 
-    private addSafes() {
-        var container = new PIXI.Container();
-        for(var i=0; i< this.safeCount; i++) {
-            var safe:Safe = new Safe();
-            safe.x = (i + 0.5) * safe.width;
-            container.addChild(safe);
-        }
-
-        container.x = (WIDTH - container.width) * 0.5;
-        container.y = HEIGHT * 0.5;
-        this.addChild(container);
+    private addSafeHolder() {
+        this.safeHolder = new SafeHolder();
+        this.safeHolder.createSafes(this.safeCount);
+        this.safeHolder.x = (WIDTH - this.safeHolder.width) * 0.5;
+        this.safeHolder.y = HEIGHT * 0.5;
+        this.addChild(this.safeHolder);
     }
 
     private addText() {
