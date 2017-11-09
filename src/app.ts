@@ -27,6 +27,14 @@ function onWindowResize() {
 // Load assets
 PIXI.loader
     .add(require('../assets/images/LOGO.png'))
+    .add([
+        require('../assets/images/safe/box_door_open.png'),
+        require('../assets/images/safe/box_door.png'),
+        require('../assets/images/safe/box_padlock_shadow.png'),
+        require('../assets/images/safe/box_padlock.png'),
+        require('../assets/images/safe/box.png'),
+        // require('../assets/images/safe/safeTop.png')
+    ])
     .load(onAssetsLoaded);
 
 function onAssetsLoaded() {
