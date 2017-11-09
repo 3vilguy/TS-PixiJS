@@ -1,10 +1,11 @@
 import { TweenLite } from 'gsap';
 import * as Combinatorics from 'js-combinatorics';
+import { Container, Sprite } from 'pixi.js';
 
 import SafeHolder from './component/SafeHolder';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 
-export default class MainView extends PIXI.Container {
+export default class MainView extends Container {
     private safeHolder : SafeHolder;
     private footerText : PIXI.extras.BitmapText;
     private safeCount : number;
@@ -27,7 +28,7 @@ export default class MainView extends PIXI.Container {
     }
 
     private addLogo() {
-        var sprite = new PIXI.Sprite(
+        var sprite = new Sprite(
             PIXI.loader.resources[require('../../assets/images/LOGO.png')].texture
         );
         sprite.anchor.x = 0.5;

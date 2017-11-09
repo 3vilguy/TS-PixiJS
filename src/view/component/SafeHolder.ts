@@ -1,8 +1,9 @@
 import { TweenLite } from 'gsap';
+import { Container } from 'pixi.js';
 
 import Safe from '../component/Safe';
 
-export default class SafeHolder extends PIXI.Container {
+export default class SafeHolder extends Container {
     private all_safes : Safe[];
     private shuffleQueue : any[];
     private shuffleSpeed : number;
