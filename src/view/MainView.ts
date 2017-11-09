@@ -10,10 +10,12 @@ export default class MainView extends Container {
     private footerText : PIXI.extras.BitmapText;
     private safeCount : number;
     private totalShuffles : number;
+    private initialTweenTime : number;
 
     public init() {
         this.safeCount = 3;
         this.totalShuffles = 5;
+        this.initialTweenTime = 2;
         this.alpha = 0;
 
         this.addGraphic();
@@ -55,7 +57,7 @@ export default class MainView extends Container {
 
 
     private showInitTween() {
-        TweenLite.to(this, 2, {alpha: 1, onComplete: () => this.onTweenComplete()})
+        TweenLite.to(this, this.initialTweenTime, {alpha: 1, onComplete: () => this.onTweenComplete()})
     }
 
     private onTweenComplete() {
