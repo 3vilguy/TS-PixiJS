@@ -1,14 +1,18 @@
 import { Container, Sprite } from 'pixi.js';
 
 export default class Safe extends Container {
+    private id : number;
     private box : Sprite;
     private box_door : Sprite;
     private box_door_open : Sprite;
     private padlock_shadow : Sprite;
     private padlock : Sprite;
 
-    constructor() {
+    constructor(id : number) {
         super();
+
+        this.id = id;
+
         this.init();
         this.closeSafe();
     }
@@ -63,5 +67,10 @@ export default class Safe extends Container {
     openSafe() {
         this.box.visible = this.box_door_open.visible = true;
         this.box_door.visible = this.padlock_shadow.visible = this.padlock.visible = false;
+    }
+
+
+    get ID() {
+        return this.id;
     }
 }

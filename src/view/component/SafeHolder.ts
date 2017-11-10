@@ -18,7 +18,7 @@ export default class SafeHolder extends Container {
 
     public createSafes(safeCount : number) {
         for(var i=0; i< safeCount; i++) {
-            var safe:Safe = new Safe();
+            var safe:Safe = new Safe(i);
             safe.x = (i + 0.5) * safe.width;
             this.addChild(safe);
             this.all_safes.push(safe);
