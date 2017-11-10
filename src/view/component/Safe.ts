@@ -7,6 +7,7 @@ export default class Safe extends Container {
     private box_door_open : Sprite;
     private padlock_shadow : Sprite;
     private padlock : Sprite;
+    private coin : Sprite;
 
     constructor(id : number) {
         super();
@@ -57,6 +58,17 @@ export default class Safe extends Container {
         this.padlock.x = 5;
         this.padlock.y = -10;
         this.addChild(this.padlock);
+
+        
+        // Add coin
+        this.coin = new Sprite(
+            PIXI.loader.resources[require('../../../assets/images/coin/face.png')].texture
+        );
+        this.coin.anchor.set(0.5, 0.5);
+        this.coin.y = -25;
+        this.coin.scale.set(0.8, 0.8);
+        this.coin.visible = false;
+        this.addChild(this.coin);
     }
 
     closeSafe() {
