@@ -2,16 +2,20 @@ import { TweenLite } from 'gsap';
 import * as Combinatorics from 'js-combinatorics';
 import { Container, Sprite } from 'pixi.js';
 
+import Safe from './component/Safe';
 import SafeHolder from './component/SafeHolder';
-import { INIT_TWEEN_TIME, SAFE_COUNT, NUMBER_OF_SHUFFLES } from '../constants/Config';
+import { INIT_TWEEN_TIME, SAFE_COUNT, NUMBER_OF_SHUFFLES, TIME_BETWEEN_PICKS } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
+import { SAFE_CLICKED } from '../constants/Events';
 
 export default class MainView extends Container {
     private safeHolder : SafeHolder;
     private footerText : PIXI.extras.BitmapText;
+    private safeClicked : number;
 
     public init() {
         this.alpha = 0;
+        this.safeClicked = 0;
 
         this.addGraphic();
         this.showInitTween();
@@ -83,5 +87,32 @@ export default class MainView extends Container {
 
     private onShuffleComplete() {
         console.log("onShuffleComplete");
+        this.startPicking();
+    }
+
+
+    private startPicking() {
+        this.footerText.text = "PICK A SAFE...";
+        this.safeHolder.on(SAFE_CLICKED, (safe : Safe) => this.handleSafeClicked(safe));
+    }
+
+    private handleSafeClicked(safe : Safe) {
+        this.footerText.text = "";
+        this.safeClicked++;
+
+        var showCoin : boolean = Math.random() >= 0.5;
+        this.safeHolder.openSafe(safe.ID, showCoin);
+
+        if(this.safeClicked == SAFE_COUNT) {
+            // All opened
+            this.footerText.text = "WE HAVE A WINRAR!";
+        } else {
+            TweenLite.delayedCall(TIME_BETWEEN_PICKS, () => this.startRemainingPicks())
+        }
+    }
+
+    private startRemainingPicks() {
+        this.footerText.text = "PICK ANOTHER SAFE...";
+        this.safeHolder.enableClosedSafes();
     }
 }

@@ -1,0 +1,1 @@
+export const SAFE_CLICKED : string = "SAFE_CLICKED";

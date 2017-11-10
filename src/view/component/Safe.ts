@@ -1,4 +1,5 @@
 import { Container, Sprite } from 'pixi.js';
+import { SAFE_CLICKED } from '../../constants/Events';
 
 export default class Safe extends Container {
     private id : number;
@@ -18,6 +19,8 @@ export default class Safe extends Container {
 
         this.init();
         this.closeSafe();
+
+        this.enableClicks();
     }
 
     init() {
@@ -79,10 +82,31 @@ export default class Safe extends Container {
         this.coin.visible = this.box_door_open.visible = false;
     }
 
-    openSafe() {
+    openSafe(showCoin?:boolean) {
         this.isOpen = true;
         this.box.visible = this.box_door_open.visible = true;
         this.box_door.visible = this.padlock_shadow.visible = this.padlock.visible = false;
+
+        if(showCoin) {
+            this.coin.visible = true;
+        }
+    }
+
+
+    public enableClicks() {
+        this.interactive = true;
+        this.buttonMode = true;
+        this.on('pointerdown', this.onButtonDown);
+    }
+
+    public disableClicks() {
+        this.interactive = false;
+        this.buttonMode = false;
+        this.off('pointerdown', this.onButtonDown);
+    }
+
+    onButtonDown() {
+        this.emit(SAFE_CLICKED, this);
     }
 
 

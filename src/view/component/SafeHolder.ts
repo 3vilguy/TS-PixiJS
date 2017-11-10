@@ -3,6 +3,7 @@ import { Container } from 'pixi.js';
 
 import Safe from '../component/Safe';
 import { SHUFFLE_SPEED } from '../../constants/Config';
+import { SAFE_CLICKED } from '../../constants/Events';
 
 export default class SafeHolder extends Container {
     private all_safes : Safe[];
@@ -21,7 +22,9 @@ export default class SafeHolder extends Container {
             var safe:Safe = new Safe(i);
             safe.x = (i + 0.5) * safe.width;
             this.addChild(safe);
+
             this.all_safes.push(safe);
+            safe.on(SAFE_CLICKED, (safe : Safe) => this.handleSafeClicked(safe));
         }
     }
 
@@ -52,5 +55,27 @@ export default class SafeHolder extends Container {
             // Both done
             this.shuffle();
         }
+    }
+
+
+    public disableAllSafes() {
+        this.all_safes.map((safe) => safe.disableClicks());
+    }
+
+    public enableClosedSafes() {
+        this.all_safes.map((safe) => {
+            if(!safe.IS_OPEN) safe.enableClicks();
+        });
+    }
+
+
+    public openSafe(safeID : number, showCoin : boolean) {
+        this.all_safes[safeID].openSafe(showCoin);
+    }
+
+
+    private handleSafeClicked(safe : Safe) {
+        this.disableAllSafes();
+        this.emit(SAFE_CLICKED, safe);
     }
 }
