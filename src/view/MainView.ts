@@ -4,6 +4,7 @@ import { Container, Sprite } from 'pixi.js';
 
 import Safe from './component/Safe';
 import SafeHolder from './component/SafeHolder';
+import Panel from './component/Panel';
 import { INIT_TWEEN_TIME, SAFE_COUNT, NUMBER_OF_SHUFFLES, TIME_BETWEEN_PICKS } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 import { SAFE_CLICKED } from '../constants/Events';
@@ -11,6 +12,7 @@ import { SAFE_CLICKED } from '../constants/Events';
 export default class MainView extends Container {
     private safeHolder : SafeHolder;
     private footerText : PIXI.extras.BitmapText;
+    private panel : Panel;
     private safeClicked : number;
 
     public init() {
@@ -26,6 +28,7 @@ export default class MainView extends Container {
         this.addLogo();
         this.addSafeHolder();
         this.addText();
+        this.addPanel();
     }
 
     private addLogo() {
@@ -52,6 +55,14 @@ export default class MainView extends Container {
         this.footerText.y = HEIGHT - this.footerText.height;
 
         this.addChild(this.footerText);
+    }
+
+    private addPanel() {
+        this.panel = new Panel();
+        this.panel.x = WIDTH * 0.5;
+        this.panel.y = HEIGHT * 0.6;
+        this.addChild(this.panel);
+        this.panel.visible = false;
     }
 
 
@@ -105,7 +116,10 @@ export default class MainView extends Container {
 
         if(this.safeClicked == SAFE_COUNT) {
             // All opened
+            var tmp : string[] = ['3', '10', '1,000'];
             this.footerText.text = "WE HAVE A WINRAR!";
+            this.panel.setMidText(tmp[Math.floor(Math.random()*tmp.length)]);
+            this.panel.visible = true;
         } else {
             TweenLite.delayedCall(TIME_BETWEEN_PICKS, () => this.startRemainingPicks())
         }

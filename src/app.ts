@@ -38,6 +38,7 @@ PIXI.loader
         // require('../assets/images/safe/safeTop.png')
     ])
     .add(require('../assets/images/coin/face.png'))
+    .add(require('../assets/images/cta_panelMessage.png'))
     .add([
         require('../assets/bitmap_font/message_simple-export.png'),
         require('../assets/bitmap_font/message_simple-export.xml')
