@@ -76,7 +76,7 @@ export default class Safe extends Container {
     closeSafe() {
         this.isOpen = false;
         this.box.visible = this.box_door.visible = this.padlock_shadow.visible = this.padlock.visible = true;
-        this.box_door_open.visible = false;
+        this.coin.visible = this.box_door_open.visible = false;
     }
 
     openSafe() {
