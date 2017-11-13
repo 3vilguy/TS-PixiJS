@@ -116,10 +116,7 @@ export default class MainView extends Container {
 
         if(this.safeClicked == SAFE_COUNT) {
             // All opened
-            var tmp : string[] = ['3', '10', '1,000'];
-            this.footerText.text = "WE HAVE A WINRAR!";
-            this.panel.setMidText(tmp[Math.floor(Math.random()*tmp.length)]);
-            this.panel.visible = true;
+            TweenLite.delayedCall(TIME_BETWEEN_PICKS, () => this.handleAllSafePicked())
         } else {
             TweenLite.delayedCall(TIME_BETWEEN_PICKS, () => this.startRemainingPicks())
         }
@@ -128,5 +125,12 @@ export default class MainView extends Container {
     private startRemainingPicks() {
         this.footerText.text = "PICK ANOTHER SAFE...";
         this.safeHolder.enableClosedSafes();
+    }
+
+    private handleAllSafePicked() {
+        var tmp : string[] = ['3', '10', '1,000'];
+        this.footerText.text = "WE HAVE A WINRAR!";
+        this.panel.setMidText(tmp[Math.floor(Math.random()*tmp.length)]);
+        this.panel.visible = true;
     }
 }
