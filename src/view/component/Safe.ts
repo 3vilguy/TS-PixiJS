@@ -23,7 +23,7 @@ export default class Safe extends Container {
         this.enableClicks();
     }
 
-    init() {
+    private init() {
         // Add empty box
         this.box = new Sprite(
             PIXI.loader.resources[require('../../../assets/images/safe/box.png')].texture
@@ -76,13 +76,13 @@ export default class Safe extends Container {
         this.addChild(this.coin);
     }
 
-    closeSafe() {
+    public closeSafe() {
         this.isOpen = false;
         this.box.visible = this.box_door.visible = this.padlock_shadow.visible = this.padlock.visible = true;
         this.coin.visible = this.box_door_open.visible = false;
     }
 
-    openSafe(showCoin?:boolean) {
+    public openSafe(showCoin?:boolean) {
         this.isOpen = true;
         this.box.visible = this.box_door_open.visible = true;
         this.box_door.visible = this.padlock_shadow.visible = this.padlock.visible = false;
@@ -94,18 +94,18 @@ export default class Safe extends Container {
 
 
     public enableClicks() {
-        this.interactive = true;
-        this.buttonMode = true;
-        this.on('pointerdown', this.onButtonDown);
+        this.box_door.interactive = true;
+        this.box_door.buttonMode = true;
+        this.box_door.on('pointerdown', this.onButtonDown);
     }
 
     public disableClicks() {
-        this.interactive = false;
-        this.buttonMode = false;
-        this.off('pointerdown', this.onButtonDown);
+        this.box_door.interactive = false;
+        this.box_door.buttonMode = false;
+        this.box_door.off('pointerdown', this.onButtonDown);
     }
 
-    onButtonDown() {
+    private onButtonDown = () => {
         this.emit(SAFE_CLICKED, this);
     }
 
