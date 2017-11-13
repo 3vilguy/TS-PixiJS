@@ -78,4 +78,12 @@ export default class SafeHolder extends Container {
         this.disableAllSafes();
         this.emit(SAFE_CLICKED, safe);
     }
+
+
+    private closeAllSafes() {
+        this.all_safes.map((safe) => {
+            safe.disableClicks();
+            safe.closeSafe();
+        });
+    }
 }

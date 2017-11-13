@@ -46,6 +46,7 @@ export default class MainView extends Container {
         this.safeHolder.x = (WIDTH - this.safeHolder.width) * 0.5;
         this.safeHolder.y = HEIGHT * 0.6;
         this.addChild(this.safeHolder);
+        this.safeHolder.on(SAFE_CLICKED, (safe : Safe) => this.handleSafeClicked(safe));
     }
 
     private addText() {
@@ -78,6 +79,7 @@ export default class MainView extends Container {
 
     private startShuffling() {
         this.footerText.text = "SHUFFLING...";
+        this.safeHolder.disableAllSafes();
 
         // Shuffle data:
         var arr = []
@@ -103,8 +105,8 @@ export default class MainView extends Container {
 
 
     private startPicking() {
+        this.safeHolder.enableClosedSafes();
         this.footerText.text = "PICK A SAFE...";
-        this.safeHolder.on(SAFE_CLICKED, (safe : Safe) => this.handleSafeClicked(safe));
     }
 
     private handleSafeClicked(safe : Safe) {
