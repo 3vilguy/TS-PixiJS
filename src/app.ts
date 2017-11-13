@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { TweenLite, Linear } from 'gsap';
 
-import MainView from './view/MainView';
+import GameController from './controller/GameController';
 import { WIDTH, HEIGHT, BG_COLOR } from './constants/RendererConstants';
 
 // Init Pixi stuff
@@ -47,16 +46,12 @@ PIXI.loader
     .load(onAssetsLoaded);
 
 function onAssetsLoaded() {
-    console.log("onAssetsLoaded");
     init();
 }
 
 function init() {
-    TweenLite.defaultEase = Linear.easeNone;
-
-    var mainView:MainView = new MainView();
-    mainView.init();
-    app.stage.addChild(mainView);
+    var gameController:GameController = new GameController(app.stage);
+    gameController.init();
     
     app.ticker.add(update);
 }
