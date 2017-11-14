@@ -4,7 +4,7 @@ import { Container, Sprite } from 'pixi.js';
 import Safe from './component/Safe';
 import SafeHolder from './component/SafeHolder';
 import Panel from './component/Panel';
-import { INIT_TWEEN_TIME, SAFE_COUNT, TIME_BETWEEN_PICKS } from '../constants/Config';
+import { SAFE_COUNT, TIME_BETWEEN_PICKS } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 import { SAFE_CLICKED, RESTART_GAME } from '../constants/Events';
 
@@ -15,15 +15,8 @@ export default class MainView extends Container {
     private safeClicked : number;
 
     public init() {
-        this.alpha = 0;
         this.safeClicked = 0;
 
-        this.addGraphic();
-        this.showInitTween();
-    }
-
-
-    private addGraphic() {
         this.addLogo();
         this.addSafeHolder();
         this.addText();
@@ -67,17 +60,7 @@ export default class MainView extends Container {
     }
 
 
-    private showInitTween() {
-        TweenLite.to(this, INIT_TWEEN_TIME, {alpha: 1, onComplete: () => this.onTweenComplete()})
-    }
-
-    private onTweenComplete() {
-        console.log("onTweenComplete");
-        this.startShuffling();
-    }
-
-
-    private startShuffling() {
+    public startShuffling() {
         this.footerText.text = "SHUFFLING...";
         this.safeHolder.disableAllSafes();
 
