@@ -1,20 +1,18 @@
-import { TweenLite } from 'gsap';
 import { Container } from 'pixi.js';
 
 import Safe from '../component/Safe';
-import { SHUFFLE_SPEED } from '../../constants/Config';
+import Shuffler from '../../controller/Shuffler';
 import { SAFE_CLICKED } from '../../constants/Events';
 
 export default class SafeHolder extends Container {
     private all_safes : Safe[];
-    private shuffleQueue : any[];
-    private tweenCount : number;
-    private onShuffleComplete : Function;
+    private shuffler : Shuffler;
 
     constructor() {
         super();
+
         this.all_safes = [];
-        this.tweenCount = 0;
+        this.shuffler = new Shuffler(this.all_safes);
     }
 
     public createSafes(safeCount : number) {
@@ -25,35 +23,6 @@ export default class SafeHolder extends Container {
 
             this.all_safes.push(safe);
             safe.on(SAFE_CLICKED, this.handleSafeClicked);
-        }
-    }
-
-    public shuffleSafes(shuffleArray : any[], onShuffleComplete : Function) {
-        this.shuffleQueue = shuffleArray;
-        this.onShuffleComplete = onShuffleComplete;
-        this.shuffle();
-    }
-
-    private shuffle() {
-        if(this.shuffleQueue.length > 0) {
-            this.tweenCount = 0;
-            var indexes = this.shuffleQueue.shift();
-            var safe1 = this.all_safes[indexes[0]];
-            var safe2 = this.all_safes[indexes[1]];
-            
-            TweenLite.to(safe1, SHUFFLE_SPEED, {x: safe2.x, onComplete: this.onTweenComplete});
-            TweenLite.to(safe2, SHUFFLE_SPEED, {x: safe1.x, onComplete: this.onTweenComplete});
-        } else {
-            // All done
-            this.onShuffleComplete();
-        }
-    }
-
-    private onTweenComplete = () => {
-        this.tweenCount++;
-        if(this.tweenCount == 2) {
-            // Both done
-            this.shuffle();
         }
     }
 
@@ -89,5 +58,10 @@ export default class SafeHolder extends Container {
             safe.disableClicks();
             safe.closeSafe();
         });
+    }
+
+
+    get SHUFFLER() {
+        return this.shuffler;
     }
 }

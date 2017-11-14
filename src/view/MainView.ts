@@ -1,11 +1,10 @@
 import { TweenLite } from 'gsap';
-import * as Combinatorics from 'js-combinatorics';
 import { Container, Sprite } from 'pixi.js';
 
 import Safe from './component/Safe';
 import SafeHolder from './component/SafeHolder';
 import Panel from './component/Panel';
-import { INIT_TWEEN_TIME, SAFE_COUNT, NUMBER_OF_SHUFFLES, TIME_BETWEEN_PICKS } from '../constants/Config';
+import { INIT_TWEEN_TIME, SAFE_COUNT, TIME_BETWEEN_PICKS } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
 import { SAFE_CLICKED, RESTART_GAME } from '../constants/Events';
 
@@ -82,21 +81,7 @@ export default class MainView extends Container {
         this.footerText.text = "SHUFFLING...";
         this.safeHolder.disableAllSafes();
 
-        // Shuffle data:
-        var arr = []
-        for(var i=0; i< SAFE_COUNT; i++) {
-            arr.push(i);
-        }
-
-        var combinations = Combinatorics.combination(arr, 2).toArray();
-        var shuffleArray = [];
-
-        for(var i=0; i< NUMBER_OF_SHUFFLES; i++) {
-            var item = combinations[Math.floor(Math.random()*combinations.length)];
-            shuffleArray.push(item);
-        }
-
-        this.safeHolder.shuffleSafes(shuffleArray, () => this.onShuffleComplete());
+        this.safeHolder.SHUFFLER.shuffleSafes(() => this.onShuffleComplete());
     }
 
     private onShuffleComplete() {
