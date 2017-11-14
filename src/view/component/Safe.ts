@@ -19,8 +19,6 @@ export default class Safe extends Container {
 
         this.init();
         this.closeSafe();
-
-        this.enableClicks();
     }
 
     private init() {
