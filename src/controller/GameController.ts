@@ -30,6 +30,16 @@ export default class GameController {
     }
 
     private onTweenComplete() {
-        this.mainView.startShuffling();
+        this.startShuffling();
+    }
+
+
+    private startShuffling() {
+        this.mainView.prepareForShuffling();
+        this.mainView.SAFE_HOLDER.SHUFFLER.shuffleSafes(this.onShuffleComplete);
+    }
+
+    private onShuffleComplete = () => {
+        this.mainView.startPicking();
     }
 }

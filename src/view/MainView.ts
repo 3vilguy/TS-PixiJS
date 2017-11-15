@@ -60,20 +60,13 @@ export default class MainView extends Container {
     }
 
 
-    public startShuffling() {
+    public prepareForShuffling() {
         this.footerText.text = "SHUFFLING...";
         this.safeHolder.disableAllSafes();
-
-        this.safeHolder.SHUFFLER.shuffleSafes(() => this.onShuffleComplete());
-    }
-
-    private onShuffleComplete() {
-        console.log("onShuffleComplete");
-        this.startPicking();
     }
 
 
-    private startPicking() {
+    public startPicking() {
         this.safeHolder.enableClosedSafes();
         this.footerText.text = "PICK A SAFE...";
     }
@@ -110,6 +103,10 @@ export default class MainView extends Container {
 
         this.safeHolder.restart();
         this.panel.visible = false;
-        this.startShuffling();
+    }
+
+
+    get SAFE_HOLDER() {
+        return this.safeHolder;
     }
 }
