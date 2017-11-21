@@ -2,7 +2,7 @@ import { TweenLite, Linear } from 'gsap';
 
 import MainView from '../view/MainView';
 import { INIT_TWEEN_TIME, SAFE_COUNT, TIME_BETWEEN_PICKS } from '../constants/Config';
-import { SAFE_CLICKED } from '../constants/Events';
+import { SAFE_CLICKED, RESTART_GAME } from '../constants/Events';
 
 export default class GameController {
     private stage : PIXI.Container;
@@ -75,13 +75,23 @@ export default class GameController {
     }
 
     private handleAllPicked = () => {
+        this.mainView.SAFE_HOLDER.off(SAFE_CLICKED, this.handleSafeClicked);
         this.showReward();
     }
 
-
     private showReward() {
+        this.mainView.WIN_PANEL.on(RESTART_GAME, this.handleRestartGame);
+
         var awards : string[] = ['3', '10', '1,000'];
         var winAmount : string = awards[Math.floor(Math.random()*awards.length)];
         this.mainView.showWin(winAmount);
+    }
+
+    private handleRestartGame = () => {
+        this.mainView.WIN_PANEL.off(RESTART_GAME, this.handleRestartGame);
+        this.safeClicked = 0;
+        this.mainView.restart();
+
+        this.startShuffling();
     }
 }

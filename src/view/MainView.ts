@@ -4,7 +4,6 @@ import SafeHolder from './component/SafeHolder';
 import Panel from './component/Panel';
 import { SAFE_COUNT } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
-import { RESTART_GAME } from '../constants/Events';
 
 export default class MainView extends Container {
     private safeHolder : SafeHolder;
@@ -50,7 +49,6 @@ export default class MainView extends Container {
         this.panel.y = HEIGHT * 0.6;
         this.addChild(this.panel);
         this.panel.visible = false;
-        this.panel.on(RESTART_GAME, () => this.handleRestartGame());
     }
 
 
@@ -76,8 +74,7 @@ export default class MainView extends Container {
         this.panel.visible = true;
     }
 
-
-    private handleRestartGame() {
+    public restart() {
         this.safeHolder.restart();
         this.panel.visible = false;
     }
@@ -90,5 +87,9 @@ export default class MainView extends Container {
 
     get SAFE_HOLDER() {
         return this.safeHolder;
+    }
+
+    get WIN_PANEL() {
+        return this.panel;
     }
 }
