@@ -1,22 +1,17 @@
-import { TweenLite } from 'gsap';
 import { Container, Sprite } from 'pixi.js';
 
-import Safe from './component/Safe';
 import SafeHolder from './component/SafeHolder';
 import Panel from './component/Panel';
-import { SAFE_COUNT, TIME_BETWEEN_PICKS } from '../constants/Config';
+import { SAFE_COUNT } from '../constants/Config';
 import { WIDTH, HEIGHT } from '../constants/RendererConstants';
-import { SAFE_CLICKED, RESTART_GAME } from '../constants/Events';
+import { RESTART_GAME } from '../constants/Events';
 
 export default class MainView extends Container {
     private safeHolder : SafeHolder;
     private footerText : PIXI.extras.BitmapText;
     private panel : Panel;
-    private safeClicked : number;
 
     public init() {
-        this.safeClicked = 0;
-
         this.addLogo();
         this.addSafeHolder();
         this.addText();
@@ -38,7 +33,6 @@ export default class MainView extends Container {
         this.safeHolder.x = (WIDTH - this.safeHolder.width) * 0.5;
         this.safeHolder.y = HEIGHT * 0.6;
         this.addChild(this.safeHolder);
-        this.safeHolder.on(SAFE_CLICKED, (safe : Safe) => this.handleSafeClicked(safe));
     }
 
     private addText() {
@@ -66,43 +60,31 @@ export default class MainView extends Container {
     }
 
 
-    public startPicking() {
-        this.safeHolder.enableClosedSafes();
+    public prepareForPicking() {
         this.footerText.text = "PICK A SAFE...";
+        this.safeHolder.enableClosedSafes();
     }
 
-    private handleSafeClicked(safe : Safe) {
-        this.footerText.text = "";
-        this.safeClicked++;
-
-        var showCoin : boolean = Math.random() >= 0.5;
-        this.safeHolder.openSafe(safe.ID, showCoin);
-
-        if(this.safeClicked == SAFE_COUNT) {
-            // All opened
-            TweenLite.delayedCall(TIME_BETWEEN_PICKS, () => this.handleAllSafePicked())
-        } else {
-            TweenLite.delayedCall(TIME_BETWEEN_PICKS, () => this.startRemainingPicks())
-        }
-    }
-
-    private startRemainingPicks() {
+    public prepareRemainingPicks() {
         this.footerText.text = "PICK ANOTHER SAFE...";
         this.safeHolder.enableClosedSafes();
     }
 
-    private handleAllSafePicked() {
-        var tmp : string[] = ['3', '10', '1,000'];
+    public showWin(winAmount : string) {
         this.footerText.text = "WE HAVE A WINRAR!";
-        this.panel.setMidText(tmp[Math.floor(Math.random()*tmp.length)]);
+        this.panel.setMidText(winAmount);
         this.panel.visible = true;
     }
 
-    private handleRestartGame() {
-        this.safeClicked = 0;
 
+    private handleRestartGame() {
         this.safeHolder.restart();
         this.panel.visible = false;
+    }
+
+
+    public clearFooter() {
+        this.footerText.text = "";
     }
 
 

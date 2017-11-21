@@ -45,7 +45,7 @@ export default class SafeHolder extends Container {
 
     private handleSafeClicked = (safe : Safe) => {
         this.disableAllSafes();
-        this.emit(SAFE_CLICKED, safe);
+        this.emit(SAFE_CLICKED, safe.ID);
     }
 
 
