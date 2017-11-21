@@ -1,25 +1,33 @@
 import { Container } from 'pixi.js';
 
 import Safe from './Safe';
+import PepLayer from './PepLayer';
 import Shuffler from '../../controller/Shuffler';
 import { SAFE_CLICKED } from '../../constants/Events';
 
 export default class SafeHolder extends Container {
     private all_safes : Safe[];
     private shuffler : Shuffler;
+    private safeLayer : Container;
+    private pepLayer : PepLayer;
 
     constructor() {
         super();
 
         this.all_safes = [];
         this.shuffler = new Shuffler(this.all_safes);
+
+        this.safeLayer = new Container();
+        this.pepLayer = new PepLayer();
+        this.addChild(this.safeLayer);
+        this.addChild(this.pepLayer);
     }
 
     public createSafes(safeCount : number) {
         for(var i=0; i< safeCount; i++) {
             var safe:Safe = new Safe(i);
             safe.x = (i + 0.5) * safe.width;
-            this.addChild(safe);
+            this.safeLayer.addChild(safe);
 
             this.all_safes.push(safe);
             safe.on(SAFE_CLICKED, this.handleSafeClicked);
@@ -45,6 +53,7 @@ export default class SafeHolder extends Container {
 
     private handleSafeClicked = (safe : Safe) => {
         this.disableAllSafes();
+        this.pepLayer.showPep(safe.x, safe.y);
         this.emit(SAFE_CLICKED, safe.ID);
     }
 

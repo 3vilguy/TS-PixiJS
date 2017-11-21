@@ -36,6 +36,14 @@ PIXI.loader
         require('../assets/images/safe/box.png'),
         // require('../assets/images/safe/safeTop.png')
     ])
+    .add([
+        require('../assets/images/pep_0.png'),
+        require('../assets/images/pep_1.png'),
+        require('../assets/images/pep_2.png'),
+        require('../assets/images/pep_3.png'),
+        require('../assets/images/pep_4.png'),
+        require('../assets/images/pep_5.png')
+    ])
     .add(require('../assets/images/coin/face.png'))
     .add(require('../assets/images/cta_panelMessage.png'))
     .add(require('../assets/images/cta_textContinue.png'))
