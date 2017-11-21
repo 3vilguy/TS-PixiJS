@@ -1,6 +1,6 @@
 import { Container } from 'pixi.js';
 
-import Safe from '../component/Safe';
+import Safe from './Safe';
 import Shuffler from '../../controller/Shuffler';
 import { SAFE_CLICKED } from '../../constants/Events';
 
