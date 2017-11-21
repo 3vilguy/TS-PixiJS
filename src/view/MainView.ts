@@ -1,4 +1,4 @@
-import { Container, Sprite } from 'pixi.js';
+import { Container, Sprite, Point } from 'pixi.js';
 
 import SafeHolder from './component/SafeHolder';
 import Panel from './component/Panel';
@@ -36,7 +36,7 @@ export default class MainView extends Container {
 
     private addText() {
         this.footerText = new PIXI.extras.BitmapText('HELLO...', { font: '35px message_simple-export'});
-        this.footerText.anchor = new PIXI.Point(0.5);
+        this.footerText.anchor = new Point(0.5);
         this.footerText.x = WIDTH * 0.5;
         this.footerText.y = HEIGHT - this.footerText.height;
 
