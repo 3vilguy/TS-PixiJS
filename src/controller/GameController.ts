@@ -30,10 +30,10 @@ export default class GameController {
 
 
     private showInitTween() {
-        TweenLite.to(this.mainView, INIT_TWEEN_TIME, {alpha: 1, onComplete: () => this.onTweenComplete()})
+        TweenLite.to(this.mainView, INIT_TWEEN_TIME, {alpha: 1, onComplete: this.onTweenComplete})
     }
 
-    private onTweenComplete() {
+    private onTweenComplete = () => {
         this.startShuffling();
     }
 
