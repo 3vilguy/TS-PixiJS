@@ -1,7 +1,7 @@
 import { Container, Sprite } from 'pixi.js';
 import { RESTART_GAME } from '../../constants/Events';
 
-export default class Safe extends Container {
+export default class Panel extends Container {
     private bg : Sprite;
     private btn : Sprite;
     private tfHeader : PIXI.extras.BitmapText;
