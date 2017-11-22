@@ -29,7 +29,7 @@ export default class MainView extends Container {
     private addSafeHolder() {
         this.safeHolder = new SafeHolder();
         this.safeHolder.createSafes(SAFE_COUNT);
-        this.safeHolder.x = (WIDTH - this.safeHolder.width) * 0.5;
+        this.safeHolder.x = WIDTH * 0.5;
         this.safeHolder.y = HEIGHT * 0.6;
         this.addChild(this.safeHolder);
     }

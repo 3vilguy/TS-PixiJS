@@ -24,14 +24,19 @@ export default class SafeHolder extends Container {
     }
 
     public createSafes(safeCount : number) {
+        var offset : number = 0;
         for(var i=0; i< safeCount; i++) {
             var safe:Safe = new Safe(i);
-            safe.x = (i + 0.5) * safe.width;
+            safe.x = i * 1.2 * safe.width;
             this.safeLayer.addChild(safe);
 
             this.all_safes.push(safe);
             safe.on(SAFE_CLICKED, this.handleSafeClicked);
+            offset = safe.width * 0.5;
         }
+
+        this.safeLayer.x = -this.safeLayer.width * 0.5 + offset;
+        this.pepLayer.x = this.safeLayer.x;
     }
 
 
