@@ -13,9 +13,11 @@ export default class PepLayer extends Container {
     }
 
     public showPep(safeX : number, safeY : number) {
+        var textureDictionary : PIXI.loaders.TextureDictionary = PIXI.loader.resources[require('../../../assets/images/sprites.json')].textures || {};
         var rnd : number = this.getRandomIntInclusive(0, this.last_pep);
+
         var pep = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/pep_' + rnd + '.png')].texture
+            textureDictionary['pep_' + rnd + '.png']
         );
         pep.x = safeX;
         pep.y = safeY - 50;

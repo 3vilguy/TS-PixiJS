@@ -18,8 +18,10 @@ export default class MainView extends Container {
     }
 
     private addLogo() {
+        var textureDictionary : PIXI.loaders.TextureDictionary = PIXI.loader.resources[require('../../assets/images/sprites.json')].textures || {};
+
         var sprite = new Sprite(
-            PIXI.loader.resources[require('../../assets/images/LOGO.png')].texture
+            textureDictionary['LOGO.png']
         );
         sprite.anchor.x = 0.5;
         sprite.x = WIDTH * 0.5;

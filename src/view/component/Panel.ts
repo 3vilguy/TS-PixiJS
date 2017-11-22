@@ -15,8 +15,10 @@ export default class Panel extends Container {
     }
 
     init() {
+        var textureDictionary : PIXI.loaders.TextureDictionary = PIXI.loader.resources[require('../../../assets/images/sprites.json')].textures || {};
+
         this.bg = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/cta_panelMessage.png')].texture
+            textureDictionary['cta_panelMessage.png']
         );
         this.bg.anchor.set(0.5, 0.5);
         this.addChild(this.bg);
@@ -32,7 +34,7 @@ export default class Panel extends Container {
         this.addChild(this.tfMid);
 
         this.btn = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/cta_textContinue.png')].texture
+            textureDictionary['cta_textContinue.png']
         );
         this.btn.anchor.set(0.5, 0.5);
         this.btn.y = this.bg.height * 0.2;

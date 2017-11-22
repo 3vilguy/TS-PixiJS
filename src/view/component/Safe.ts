@@ -22,16 +22,18 @@ export default class Safe extends Container {
     }
 
     private init() {
+        var textureDictionary : PIXI.loaders.TextureDictionary = PIXI.loader.resources[require('../../../assets/images/sprites.json')].textures || {};
+
         // Add empty box
         this.box = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/safe/box.png')].texture
+            textureDictionary['box.png']
         );
         this.box.anchor.set(0.5, 0.5);
         this.addChild(this.box);
 
         // Add box door
         this.box_door = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/safe/box_door.png')].texture
+            textureDictionary['box_door.png']
         );
         this.box_door.anchor.set(0.5, 0.5);
         this.box_door.y = -10;
@@ -39,7 +41,7 @@ export default class Safe extends Container {
 
         // Add box door open
         this.box_door_open = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/safe/box_door_open.png')].texture
+            textureDictionary['box_door_open.png']
         );
         this.box_door_open.anchor.set(0.5, 0.5);
         this.box_door_open.x = 125;
@@ -48,14 +50,14 @@ export default class Safe extends Container {
 
         // Add padlock's shadow
         this.padlock_shadow = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/safe/box_padlock_shadow.png')].texture
+            textureDictionary['box_padlock_shadow.png']
         );
         this.padlock_shadow.anchor.set(0.5, 0.5);
         this.addChild(this.padlock_shadow);
 
         // Add padlock
         this.padlock = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/safe/box_padlock.png')].texture
+            textureDictionary['box_padlock.png']
         );
         this.padlock.anchor.set(0.5, 0.5);
         this.padlock.x = 5;
@@ -65,7 +67,7 @@ export default class Safe extends Container {
         
         // Add coin
         this.coin = new Sprite(
-            PIXI.loader.resources[require('../../../assets/images/coin/face.png')].texture
+            textureDictionary['face.png']
         );
         this.coin.anchor.set(0.5, 0.5);
         this.coin.y = -25;

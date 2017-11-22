@@ -27,26 +27,9 @@ function onWindowResize() {
 
 // Load assets
 PIXI.loader
-    .add(require('../assets/images/LOGO.png'))
     .add([
-        require('../assets/images/safe/box_door_open.png'),
-        require('../assets/images/safe/box_door.png'),
-        require('../assets/images/safe/box_padlock_shadow.png'),
-        require('../assets/images/safe/box_padlock.png'),
-        require('../assets/images/safe/box.png'),
-        // require('../assets/images/safe/safeTop.png')
+        require('../assets/images/sprites.json')
     ])
-    .add([
-        require('../assets/images/pep_0.png'),
-        require('../assets/images/pep_1.png'),
-        require('../assets/images/pep_2.png'),
-        require('../assets/images/pep_3.png'),
-        require('../assets/images/pep_4.png'),
-        require('../assets/images/pep_5.png')
-    ])
-    .add(require('../assets/images/coin/face.png'))
-    .add(require('../assets/images/cta_panelMessage.png'))
-    .add(require('../assets/images/cta_textContinue.png'))
     .add([
         require('../assets/bitmap_font/message_simple-export.png'),
         require('../assets/bitmap_font/message_simple-export.xml')
