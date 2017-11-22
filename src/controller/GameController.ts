@@ -1,7 +1,7 @@
 import { TweenLite, Linear } from 'gsap';
 
 import MainView from '../view/MainView';
-import { INIT_TWEEN_TIME, SAFE_COUNT, TIME_BETWEEN_PICKS } from '../constants/Config';
+import { INIT_TWEEN_TIME, SAFE_COUNT, DELAY_BETWEEN_PICKS, DELAY_AFTER_ALL_PICKS } from '../constants/Config';
 import { SAFE_CLICKED, RESTART_GAME } from '../constants/Events';
 
 export default class GameController {
@@ -61,13 +61,16 @@ export default class GameController {
         this.mainView.SAFE_HOLDER.openSafe(safeID, showCoin);
 
         var handler;
+        var delay;
         if(this.safeClicked == SAFE_COUNT) {
             handler = this.handleAllPicked;
+            delay = DELAY_AFTER_ALL_PICKS;
         } else {
             handler = this.handleRemainingPicks;
+            delay = DELAY_BETWEEN_PICKS;
         }
 
-        TweenLite.delayedCall(TIME_BETWEEN_PICKS, handler);
+        TweenLite.delayedCall(delay, handler);
     }
 
     private handleRemainingPicks = () => {
